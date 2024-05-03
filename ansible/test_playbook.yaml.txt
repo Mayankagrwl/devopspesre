@@ -1,0 +1,25 @@
+---
+- name: Test playbook with debug module
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Get system uptime
+      shell: /usr/bin/uptime
+      register: uptime_result
+
+    - name: Print uptime information (basic)
+      debug:
+        msg: "System uptime: {{ uptime_result.stdout }}"
+
+    - name: Print uptime information (verbosity 1)
+      debug:
+        var: uptime_result.stdout
+        verbosity: 1
+
+    - name: Print uptime information (verbosity 2)
+      debug:
+        var: uptime_result
+        verbosity: 2
+
+  explain: yes
