@@ -1,4 +1,4 @@
-[ servers]
+[servers]
 server1 192.168.1.21 ansible_user=root ansible_ssh_pass=root
 server2 192.168.1.22 ansible_user=root ansible_ssh_pass=root
 server3 192.168.1.23 ansible_user=root ansible_ssh_pass=root
