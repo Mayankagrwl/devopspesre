@@ -11,6 +11,10 @@
   - python3-pip
   - tree
   - unzip
+  - gnupg2
+  - software-properties-common
+  - apt-transport-https
+  - ca-certificates
 
 - name: Install Pip3 packages
   pip:
