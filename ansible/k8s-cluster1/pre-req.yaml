@@ -11,6 +11,15 @@
   - python3-pip
   - tree
 
+- name: Install yum required packages
+  package:
+    name: "{{item}}"
+    state: hold
+  loop:
+  - python3-pip
+  - tree
+  - python3
+
 - name: Install Pip3 packages
   pip:
     name: "{{item}}"
