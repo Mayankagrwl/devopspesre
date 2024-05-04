@@ -1,5 +1,5 @@
 - name: Add Kubernetes signing key
-  apt_key:
+  get_url:
     url:  https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
     #state: present
     dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
