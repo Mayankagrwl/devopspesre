@@ -1,0 +1,23 @@
+- name: Install Python3
+  package:
+    name: python3
+    state: present
+
+- name: Install yum required packages
+  package:
+    name: "{{item}}"
+    state: present
+  loop:
+  - yum-utils
+  - python3-pip
+  - libffi-devel
+  - tree
+
+- name: Install Pip3 packages
+  pip:
+    name: "{{item}}"
+    executable: pip3
+  loop:
+  - hvac==1.1.1
+  - kubernetes==26.1.0
+  - openshift==0.13.1
