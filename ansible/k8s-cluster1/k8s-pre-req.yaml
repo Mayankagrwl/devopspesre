@@ -8,15 +8,16 @@
     regexp: '^(\s*)([^#\n]+\s+)(\w+\s)swap(\s+.*)$'
     replace: '#\1\2\3swap\4'
 
-- name: Disable SELinux
-  selinux:
-    state: disabled
+# SElinux not present on Ubuntu
+#- name: Disable SELinux
+ # selinux:
+  #  state: disabled
 
-- name: SELinux Disabled in Config
-  lineinfile:
-    path: /etc/selinux/config
-    regexp: '^SELINUX='
-    line: SELINUX=disabled
+#- name: SELinux Disabled in Config
+ # lineinfile:
+  #  path: /etc/selinux/config
+   # regexp: '^SELINUX='
+    #line: SELINUX=disabled
 
 - name: Modprobe
   shell: |
