@@ -1,4 +1,3 @@
----
 - name: Create user sysops
   hosts: all  # This will run on all managed hosts
 
@@ -39,9 +38,6 @@
         line: "sysops ALL=(ALL) NOPASSWD: ALL"
         validate: '/usr/sbin/visudo -cf %s'
 
-
-
----
 - name: Generate SSH keys for sysops user
   hosts: all
   become: true
@@ -79,9 +75,6 @@
         - path: /home/sysops/.ssh/id_rsa.pub
           mode: 0644
 
-
-
----
 - name: Copy Jenkins user public key to sysops user on target server
   hosts: target_server  # Replace with the server hostname or group
   become: true
