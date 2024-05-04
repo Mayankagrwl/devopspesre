@@ -72,16 +72,5 @@
           mode: 0644
 
 
-    - name: Get Jenkins user public key
-      vars:
-        jenkins_public_key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
-      delegate_facts: false
-      register: jenkins_key
 
-    - name: Add Jenkins user public key to sysops user authorized_keys
-      authorized_key:
-        user: sysops  # Username on the target server
-        key: "{{ jenkins_key.stdout }}"
-        state: present  # Add or update the key
-      when: jenkins_key.stdout is defined
 
