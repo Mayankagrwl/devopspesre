@@ -45,11 +45,12 @@
   tags: download,local
 
 - name: Unarchive bundle
-  src: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
-  dest: "/tmp"
-  #remote_src: yes
-  extra_opts:
-  - "--strip-components=1"
+  unarchive:
+    src: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
+    dest: "/tmp"
+    #remote_src: yes
+    extra_opts:
+    - "--strip-components=1"
 
 - name: Copy cri-docker to /usr/local/bin with right user and permissions
   copy:
