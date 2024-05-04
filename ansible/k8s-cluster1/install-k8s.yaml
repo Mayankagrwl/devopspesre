@@ -17,7 +17,7 @@
   loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
 
 - name: Hold Kubernetes packages to prevent unintended upgrades
-  apt:
+  dpkg_selections:
     name: "{{ item }}"
-    state: hold
+    selection: hold
   loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
