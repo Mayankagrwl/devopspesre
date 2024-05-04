@@ -1,29 +1,4 @@
 ---
-- name: Test playbook with debug module
-  hosts: all
-  become: true
-
-  tasks:
-    - name: Get system uptime
-      shell: /usr/bin/uptime
-      register: uptime_result
-
-    - name: Print uptime information (basic)
-      debug:
-        msg: "System uptime: {{ uptime_result.stdout }}"
-
-    - name: Print uptime information (verbosity 1)
-      debug:
-        var: uptime_result.stdout
-        verbosity: 1
-
-    - name: Print uptime information (verbosity 2)
-      debug:
-        var: uptime_result
-        verbosity: 2
-
-
----
 - name: Create user sysops
   hosts: all  # This will run on all managed hosts
 
@@ -104,18 +79,17 @@
         - path: /home/sysops/.ssh/id_rsa.pub
           mode: 0644
 
-  explain: yes
 
 
 ---
-- name: Copy sysops user public key to devops user on target server
+- name: Copy Jenkins user public key to sysops user on target server
   hosts: target_server  # Replace with the server hostname or group
   become: true
 
   tasks:
-    - name: Get sysops user public key
+    - name: Get Jenkins user public key
       vars:
-        sysops_public_key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
+        jenkins_public_key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
       delegate_facts: false
       register: jenkins_key
 
@@ -124,5 +98,5 @@
         user: sysops  # Username on the target server
         key: "{{ jenkins_key.stdout }}"
         state: present  # Add or update the key
-      when: sysops_key.stdout is defined
+      when: jenkins_key.stdout is defined
 
