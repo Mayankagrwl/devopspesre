@@ -67,14 +67,14 @@
     - name: Set permissions on SSH directory and key files
       file:
         path: "{{ item.path }}"
-        mode: {{ item.mode }}
+        mode: "{{ item.mode }}"
       with_items:
         - path: /home/sysops/.ssh
-          mode: 0700
+          mode: "0700"
         - path: /home/sysops/.ssh/id_rsa
-          mode: 0600
+          mode: "0600"
         - path: /home/sysops/.ssh/id_rsa.pub
-          mode: 0644
+          mode: "0644"
 
 
     - name: Set authorized key for user sysops copying it from Jenkins user
