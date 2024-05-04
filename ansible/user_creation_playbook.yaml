@@ -38,11 +38,7 @@
         line: "sysops ALL=(ALL) NOPASSWD: ALL"
         validate: '/usr/sbin/visudo -cf %s'
 
-- name: Generate SSH keys for sysops user
-  hosts: all
-  become: true
 
-  tasks:
     - name: Check if sysops user's SSH directory exists
       stat:
         path: /home/sysops/.ssh
@@ -75,11 +71,7 @@
         - path: /home/sysops/.ssh/id_rsa.pub
           mode: 0644
 
-- name: Copy Jenkins user public key to sysops user on target server
-  hosts: target_server  # Replace with the server hostname or group
-  become: true
 
-  tasks:
     - name: Get Jenkins user public key
       vars:
         jenkins_public_key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
