@@ -62,13 +62,12 @@
   get_url:
     url: https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.13/cri-dockerd-0.3.13.amd64.tgz
     dest: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
-  tags: download,local
 
 - name: Unarchive bundle
   unarchive:
     src: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
     dest: "/tmp"
-    #remote_src: yes
+    remote_src: yes
     extra_opts:
     - "--strip-components=1"
 
@@ -77,22 +76,22 @@
     src: "/tmp/cri-dockerd"
     dest: "/usr/local/bin/cri-dockerd"
     mode: "0755"
-    #remote_src: yes
+    remote_src: yes
 
-#- name: Remove Cric-dockerd from /tmp
- # file:
-  #  path: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
-   # state: absent
+- name: Remove Cric-dockerd from /tmp
+  file:
+    path: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
+    state: absent
 
-#- name: Remove Cric-dockerd from /tmp
- # file:
-  #  path: "/tmp/cri-dockerd"
-   # state: absent
+- name: Remove Cric-dockerd from /tmp
+  file:
+     path: "/tmp/cri-dockerd"
+     state: absent
+
 - name: Download Cri-docker bundle to Machine
   get_url:
     url: "https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/{{item}}"
     dest: "/tmp/{{item}}"
-  tags: download,local
   loop:
   - cri-docker.service
   - cri-docker.socket
@@ -104,6 +103,7 @@
     owner: root
     group: root
     mode: 0600
+    remote_src: yes
   loop:
   - cri-docker.socket
   - cri-docker.service
