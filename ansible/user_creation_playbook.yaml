@@ -49,7 +49,9 @@
         name: /home/sysops/.ssh
         state: directory
         mode: 0700
-      when: not ssh_dir_stat.stat.exists
+        owner: sysops
+        group: sysops
+      #when: not ssh_dir_stat.stat.exists
 
     - name: generate SSH key id_rsa.pub
       user:
