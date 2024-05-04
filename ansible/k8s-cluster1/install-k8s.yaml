@@ -7,7 +7,7 @@
   apt_repository:
     repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
     state: present
-    filename: 'kubernetes.list'
+    filename: 'kubernetes'
 
 
 - name: Install Kubernetes components
