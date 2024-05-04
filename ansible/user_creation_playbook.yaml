@@ -51,13 +51,14 @@
         mode: 0700
       when: not ssh_dir_stat.stat.exists
 
-    - name: Generate SSH key pair for sysops user
-      become_user: sysops
-      openssh_keypair:
-        path: "~/.ssh/"
-        type: rsa
-        size: 4096
-        state: present
+    - name: generate SSH key id_rsa.pub
+      user:
+        name: sysops
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 4096
+        ssh_key_file: .ssh/id_rsa.pub
+        ssh_key_passphrase: ""
         force: no
       
 
