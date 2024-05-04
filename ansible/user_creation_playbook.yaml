@@ -53,11 +53,13 @@
 
     - name: Generate SSH key pair for sysops user
       become_user: sysops
-      authorized_key:
-        user: sysops
-        key: "{{ lookup('file', '/home/sysops/.ssh/id_rsa.pub') }}"
+      openssh_keypair:
+        path: "~/.ssh/"
+        type: rsa
+        size: 4096
         state: present
-      when: not ssh_dir_stat.stat.exists
+        force: no
+      
 
     - name: Set permissions on SSH directory and key files
       file:
@@ -72,5 +74,9 @@
           mode: 0644
 
 
-
+    - name: Set authorized key for user sysops copying it from Jenkins user
+      authorized_key:
+        user: sysops
+        state: present
+        key: "{{ lookup('file', '/home/jenkins/.ssh/id_rsa.pub') }}"
 
