@@ -67,7 +67,7 @@
     - name: Set permissions on SSH directory and key files
       file:
         path: "{{ item.path }}"
-        mode: "{{ item.mode }}"
+        mode: {{ item.mode }}
       with_items:
         - path: /home/sysops/.ssh
           mode: 0700
