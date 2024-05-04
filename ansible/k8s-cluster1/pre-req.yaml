@@ -8,9 +8,7 @@
     name: "{{item}}"
     state: present
   loop:
-  - yum-utils
   - python3-pip
-  - libffi-devel
   - tree
 
 - name: Install Pip3 packages
