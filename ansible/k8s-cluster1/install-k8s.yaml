@@ -6,12 +6,12 @@
 
 - name: Add Kubernetes signing key
   shell: |
-    curl -fsSL  https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    curl -fsSL  https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   when: "not keyring.stat.exists"
 
 - name: Add Kubernetes repository
   apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
+    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /"
     state: present
     filename: 'kubernetes'
   when: "not keyring.stat.exists"
@@ -29,6 +29,12 @@
     name: "{{ item }}"
     selection: hold
   loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
+
+- name: Add --node-ip in kubelet config
+  lineinfile:
+    path: /etc/sysconfig/kubelet
+    regexp: '^KUBELET_EXTRA_ARGS='
+    line: KUBELET_EXTRA_ARGS="--node-ip"
 
 -  name: Reload Systemd
    shell: systemctl daemon-reload

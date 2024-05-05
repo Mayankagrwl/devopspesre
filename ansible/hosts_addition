@@ -1,0 +1,13 @@
+- name: Adding entry in /etc/hosts
+  hosts: all  # This will run on all managed hosts
+
+  become: true
+
+  tasks:
+- name: Add Conf for containerd
+  blockinfile:
+    path: "/etc/hosts"
+    block: |
+      192.168.1.22 server2
+      192.168.1.23 server3
+      192.168.1.24 server4
