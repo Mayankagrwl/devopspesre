@@ -31,7 +31,7 @@
 - name: Unarchive bundle
   unarchive:
     src: "/tmp/cilium-linux-amd64.tar.gz"
-    dest: "/tmp/"
+    dest: "/usr/local/bin"
     remote_src: yes
     #extra_opts:
     #- "--strip-components=1"
