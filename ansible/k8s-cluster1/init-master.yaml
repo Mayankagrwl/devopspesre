@@ -1,0 +1,23 @@
+- name: Check status of API server 
+  shell: "kubectl get pods -n kube-system |grep api"
+  regsiter: api_status
+
+- name: Initialize the Kubernetes cluster using kubeadm
+  shell: "kubeadm init --control-plane-endpoint={{ ansible_hostname }}"
+  register: kubeadm_init
+  when: api_status.stdout_lines | length == 0
+
+- name: Create .kube directory
+  file:
+    path: $HOME/.kube
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: 0755
+
+- name: Copy admin.conf to user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: $HOME/.kube/config
+    remote_src: yes
+    owner: "{{ ansible_user }}"
+    mode: 0644
