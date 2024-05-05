@@ -33,5 +33,5 @@
     src: "/tmp/cilium-linux-amd64.tar.gz"
     dest: "/tmp/"
     remote_src: yes
-    extra_opts:
-    - "--strip-components=1"
+    #extra_opts:
+    #- "--strip-components=1"
