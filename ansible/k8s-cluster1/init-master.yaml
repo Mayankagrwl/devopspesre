@@ -4,7 +4,7 @@
   register: api_status
 
 - name: Initialize the Kubernetes cluster using kubeadm
-  shell: "kubeadm init --control-plane-endpoint={{ ansible_hostname }}"
+  shell: "kubeadm init --control-plane-endpoint={{ ansible_host }}"
   register: kubeadm_init
   when: api_status.stdout_lines | length == 0
 
