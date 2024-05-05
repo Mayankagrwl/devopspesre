@@ -36,6 +36,12 @@
     #extra_opts:
     #- "--strip-components=1"
 
+- name: Check status of Cilium Pod 
+  shell: "kubectl get pods -n kube-system |grep cilium-operator |grep Running"
+  ignore_errors: true
+  register: cilium_status    
+
 - name: Install Cilium
   shell: |
     cilium install
+  when: cilium install.stdout_lines | length == 0
