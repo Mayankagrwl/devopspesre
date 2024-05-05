@@ -33,7 +33,7 @@
 -  name: Reload Systemd
    shell: systemctl daemon-reload
 
--  name: Start Kubelet
-   service:
-     name: kubelet
-     state: started 
+#-  name: Start Kubelet
+ #  service:
+  #   name: kubelet
+   #  state: started 
