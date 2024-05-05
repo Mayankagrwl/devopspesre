@@ -6,8 +6,8 @@
     - name: Pre-requisites tasks
       include_tasks: pre-req.yaml
 
-    #- name: Install Docker
-     # include_tasks: install-docker.yaml
+    - name: Install Docker
+      include_tasks: install-docker.yaml
 
     - name: K8S Pre-requisites
       include_tasks: k8s-pre-req.yaml
@@ -22,3 +22,5 @@
     - name: Join nodes to the Kubernetes cluster
       include_tasks: join-nodes.yaml
       when: inventory_hostname not in 'master1'
+
+  
