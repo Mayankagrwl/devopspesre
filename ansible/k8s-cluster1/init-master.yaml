@@ -44,4 +44,4 @@
 - name: Install Cilium
   shell: |
     cilium install
-  when: cilium install.stdout_lines | length == 0
+  when: cilium_status.stdout_lines | length == 0
