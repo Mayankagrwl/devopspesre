@@ -1,4 +1,4 @@
-- name: Install Kubernetes cluster with kubeadm, Docker and Cilium
+- name: Kubernetes Cluster Creation
   hosts: cluster1
   become: yes
   tasks:
