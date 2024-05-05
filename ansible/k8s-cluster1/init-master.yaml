@@ -22,3 +22,16 @@
     remote_src: yes
     owner: "{{ ansible_user }}"
     mode: 0644
+
+- name: Download Cilium Binary
+  get_url:
+    url: "https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz"
+    dest: "/tmp/cilium-linux-amd64.tar.gz"
+
+- name: Unarchive bundle
+  unarchive:
+    src: "/tmp/cilium-linux-amd64.tar.gz"
+    dest: "/tmp/"
+    remote_src: yes
+    extra_opts:
+    - "--strip-components=1"
