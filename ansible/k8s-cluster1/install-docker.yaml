@@ -30,7 +30,7 @@
     state: present
     update_cache: yes
   loop:
-  - docker
+  - docker.io
   #- docker-ce
   #- docker-ce-cli
   #- containerd.io
