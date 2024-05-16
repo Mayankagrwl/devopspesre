@@ -23,25 +23,3 @@
     owner: "{{ ansible_user }}"
     mode: 0644
 
-- name: Download Cilium Binary
-  get_url:
-    url: "https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz"
-    dest: "/tmp/cilium-linux-amd64.tar.gz"
-
-- name: Unarchive bundle
-  unarchive:
-    src: "/tmp/cilium-linux-amd64.tar.gz"
-    dest: "/usr/local/bin"
-    remote_src: yes
-    #extra_opts:
-    #- "--strip-components=1"
-
-- name: Check status of Cilium Pod 
-  shell: "kubectl get pods -n kube-system |grep cilium-operator |grep Running"
-  ignore_errors: true
-  register: cilium_status    
-
-- name: Install Cilium
-  shell: |
-    cilium install
-  when: cilium_status.stdout_lines | length == 0
