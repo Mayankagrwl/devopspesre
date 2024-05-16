@@ -19,17 +19,17 @@
    # regexp: '^SELINUX='
     #line: SELINUX=disabled
 
-- name: Create modules-load.d directory and file
-  file:
-    path: /etc/modules-load.d/containerd.conf
-    state: touch
+#- name: Create modules-load.d directory and file
+ # file:
+  #  path: /etc/modules-load.d/containerd.conf
+   # state: touch
 
-- name: Add Conf for containerd
-  blockinfile:
-    path: "/etc/modules-load.d/containerd.conf"
-    block: |
-      overlay
-      br_netfilter
+#- name: Add Conf for containerd
+ # blockinfile:
+  #  path: "/etc/modules-load.d/containerd.conf"
+   # block: |
+    #  overlay
+     # br_netfilter
       
 
 - name: Modprobe
@@ -58,83 +58,89 @@
   shell: |
     sysctl --system
 
-- name: Containerd default
-  shell: |
-    containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
+#- name: Containerd default
+ # #shell: |
+    #containerd config default | sudo tee /etc/containerd/config.toml >/dev/null 2>&1
 
 
-- name: Set SystemdCgroup to true
-  replace:
-    path: /etc/containerd/config.toml
-    regexp: 'SystemdCgroup = false'
-    replace: 'SystemdCgroup = true'
+#- name: Set SystemdCgroup to true
+ # replace:
+  #  path: /etc/containerd/config.toml
+   # regexp: 'SystemdCgroup = false'
+    #replace: 'SystemdCgroup = true'
 
-- name: Enable and start Containerd
-  service:
-    name: "containerd"
-    state: restarted
-    enabled: yes
+#- name: Enable and start Containerd
+ # service:
+  #  name: "containerd"
+   # state: restarted
+    #enabled: yes
 
 
-#- name: Download Cri-docker bundle to Machine
- # get_url:
-  #  url: https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.13/cri-dockerd-0.3.13.amd64.tgz
-   # dest: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
+- name: Download Cri-docker bundle to Machine
+  get_url:
+    url: https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.13/cri-dockerd-0.3.13.amd64.tgz
+    dest: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
 
-#- name: Unarchive bundle
- # unarchive:
-  #  src: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
-   # dest: "/tmp"
-    #remote_src: yes
+- name: Unarchive bundle
+  unarchive:
+    src: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
+    dest: "/tmp"
+    remote_src: yes
     #extra_opts:
     #- "--strip-components=1"
 
-#- name: Copy cri-docker to /usr/local/bin with right user and permissions
- # copy:
-  #  src: "/tmp/cri-dockerd"
-   # dest: "/usr/local/bin/cri-dockerd"
-    #mode: "0755"
-    #remote_src: yes
+- name: Copy cri-docker to /usr/local/bin with right user and permissions
+  copy:
+    src: "/tmp/cri-dockerd"
+    dest: "/usr/local/bin/cri-dockerd"
+    mode: "0755"
+    remote_src: yes
 
-#- name: Remove Cric-dockerd from /tmp
- # file:
-  #  path: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
-   # state: absent
+- name: Remove Cric-dockerd from /tmp
+  file:
+    path: "/tmp/cri-dockerd-0.3.13.amd64.tgz"
+    state: absent
 
-#- name: Remove Cric-dockerd from /tmp
- # file:
-  #   path: "/tmp/cri-dockerd"
-   #  state: absent
+- name: Remove Cric-dockerd from /tmp
+  file:
+    path: "/tmp/cri-dockerd"
+    state: absent
 
-#- name: Download Cri-docker bundle to Machine
- # get_url:
-  #  url: "https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/{{item}}"
-   # dest: "/tmp/{{item}}"
-  #loop:
-  #- cri-docker.service
-  #- cri-docker.socket
+- name: Download Cri-docker bundle to Machine
+  get_url:
+    url: "https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/{{item}}"
+    dest: "/tmp/{{item}}"
+  loop:
+  - cri-docker.service
+  - cri-docker.socket
 
-#- name: Copy Cri-docker service and socket files to /etc/systemd/system/
- # copy:
-  #  src: "/tmp/{{item}}"
-   # dest: "/etc/systemd/system/{{item}}"
-    #owner: root
-    #group: root
-    #mode: 0600
-    #remote_src: yes
-  #loop:
-  #- cri-docker.socket
-  #- cri-docker.service
+- name: Copy Cri-docker service and socket files to /etc/systemd/system/
+  copy:
+    src: "/tmp/{{item}}"
+    dest: "/etc/systemd/system/{{item}}"
+    owner: root
+    group: root
+    mode: 0600
+    remote_src: yes
+  loop:
+  - cri-docker.socket
+  - cri-docker.service
 
-#- name: Reload Systemd
- # shell: systemctl daemon-reload
+- name: replace path in cri-dockerd service
+  replace:
+    path: /etc/systemd/system/cri-docker.service
+    regexp: '/usr/bin/cri-dockerd'
+    replace: '/usr/local/bin/cri-dockerd'
 
-#- name: Enable and start cri-dockerd
- # service:
-  #  name: "{{item}}"
-   # state: started
-    #enabled: yes
-  #loop:
-  #- cri-docker.service
-  #- cri-docker.socket
+- name: Reload Systemd
+  shell: systemctl daemon-reload
+
+- name: Enable and start cri-dockerd
+  service:
+    name: "{{item}}"
+    state: started
+    enabled: yes
+  loop:
+  - cri-docker.service
+  - cri-docker.socket
 
