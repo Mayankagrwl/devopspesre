@@ -91,7 +91,7 @@
 
 - name: Copy cri-docker to /usr/local/bin with right user and permissions
   copy:
-    src: "/tmp/cri-dockerd"
+    src: "/tmp/cri-dockerd/cri-dockerd"
     dest: "/usr/local/bin/cri-dockerd"
     mode: "0755"
     remote_src: yes
