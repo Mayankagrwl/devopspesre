@@ -11,3 +11,14 @@
         192.168.1.22 server2
         192.168.1.23 server3
         192.168.1.24 server4
+
+  - name: Configure NTP
+    apt:
+      name: ntpdate
+      state: present
+  
+  - name: Execute Shell
+    shell: |
+      ntpdate ntp.ntsc.ac.cn
+      hwclock
+      apt update
