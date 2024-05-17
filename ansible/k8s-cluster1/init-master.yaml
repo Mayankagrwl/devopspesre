@@ -37,13 +37,18 @@
     state: absent
     update_repo_cache: true
 
+- name: Copy cilium-values.yaml to remote
+  copy:
+    path: cilium-values.yaml
+    dest: /tmp/cilium-values.yaml
+
 - name: Deploy Cilium chart using values files on target
   kubernetes.core.helm:
     name: cilium # Name of HELM Deployment
     chart_ref: cilium/cilium
     release_namespace: kube-system
     values_files:
-    - ansible/k8s-cluster1/cilium-values.yaml
+    - /tmp/cilium-values.yaml
 
 
   
