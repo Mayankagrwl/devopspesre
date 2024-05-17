@@ -18,7 +18,13 @@
       state: present
   
   - name: Execute Shell
-    shell: |
-      ntpdate ntp.ntsc.ac.cn
-      hwclock
-      apt update
+    command: ntpdate ntp.ntsc.ac.cn
+
+  - name: Execute shell
+    command: hwclock
+
+  - name: Apt update
+    apt:
+      upgrade: yes
+      update_cache: yes
+      
