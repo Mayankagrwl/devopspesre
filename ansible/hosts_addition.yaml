@@ -16,6 +16,11 @@
     apt:
       name: ntpdate
       state: present
+
+  - name: execute shell
+    shell: |
+      "ntpdate ntp.ntsc.ac.cn"
+      "hwclock"
   
   - name: Apt update
     apt:
