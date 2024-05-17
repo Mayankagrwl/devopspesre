@@ -43,7 +43,7 @@
     chart_ref: cilium/cilium
     release_namespace: kube-system
     values_files:
-    - cilium-values.yaml
+    - ansible/k8s-cluster1/cilium-values.yaml
 
 
   
