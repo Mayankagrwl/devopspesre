@@ -48,8 +48,18 @@
     name: cilium # Name of HELM Deployment
     chart_ref: cilium/cilium
     release_namespace: kube-system
-    values_files:
-    - /tmp/cilium-values.yaml
+    #values_files:
+    #- /tmp/cilium-values.yaml
+    values:
+      kubeProxyReplacement: strict
+      k8sServiceHost: 192.168.1.22
+      externalIPs.enabled: true
+      k8sServicePort: 6443
+      bpf
+        hostLegacyRouting: false
+        masquerade: true
+      cluster
+        name: "kubernetes"
 
 
   
