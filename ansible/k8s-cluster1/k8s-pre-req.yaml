@@ -144,3 +144,22 @@
   - cri-docker.service
   - cri-docker.socket
 
+## OPtional if you want to use HELM charts in your deployments
+
+- name: Download Helm 3 installer script
+  get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get_helm.sh
+    mode: 0700  # Set permissions to executable
+
+- name: Make downloaded script executable
+  command: chmod +x /tmp/get_helm.sh
+
+- name: Run Helm 3 installer script
+  command: /tmp/get_helm.sh
+
+- name: remove get_helm.sh from /tmp
+  file:
+    path: /tmp/get_helm.sh
+    state: absent
+
