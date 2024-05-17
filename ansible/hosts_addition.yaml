@@ -17,12 +17,6 @@
       name: ntpdate
       state: present
   
-  - name: Execute Shell
-    command: "ntpdate ntp.ntsc.ac.cn"
-
-  - name: Execute shell
-    command: hwclock
-
   - name: Apt update
     apt:
       upgrade: yes
