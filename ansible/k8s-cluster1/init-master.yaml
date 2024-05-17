@@ -39,8 +39,9 @@
 
 - name: Copy cilium-values.yaml to remote
   copy:
-    path: cilium-values.yaml
+    src: cilium-values.yaml
     dest: /tmp/cilium-values.yaml
+    remote_src: false
 
 - name: Deploy Cilium chart using values files on target
   kubernetes.core.helm:
