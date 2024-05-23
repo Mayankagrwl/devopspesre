@@ -15,7 +15,8 @@
   - name: Create Shared directory
     file:
       path: /shared1
-      type: directory
+      state: directory
+      mode: '0755'
 
   - mount:
       path: /shared1
