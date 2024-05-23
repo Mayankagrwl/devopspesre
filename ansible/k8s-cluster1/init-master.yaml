@@ -21,7 +21,7 @@
     dest: $HOME/.kube/config
     remote_src: yes
     owner: "{{ ansible_user }}"
-    mode: 0644
+    mode: 0600
 
 ## Install CILIUM plugin using HELM
 
@@ -62,4 +62,15 @@
         name: "kubernetes"
 
 
-  
+  ### Install Cilium CLI
+
+- name: Download Cilium Binary
+  get_url:
+    url: "https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz"
+    dest: "/tmp/cilium-linux-amd64.tar.gz"
+
+- name: Unarchive bundle
+  unarchive:
+    src: "/tmp/cilium-linux-amd64.tar.gz"
+    dest: "/usr/local/bin"
+    remote_src: yes

@@ -12,6 +12,17 @@
         192.168.1.23 server3
         192.168.1.24 server4
 
+  - name: Create Shared directory
+    file:
+      path: /shared1
+      type: directory
+
+  - mount:
+      path: /shared1
+      src: shared1
+      fstype: vboxsf
+      state: present
+      
   - name: Configure NTP
     apt:
       name: ntpdate
