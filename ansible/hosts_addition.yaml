@@ -34,8 +34,8 @@
       "ntpdate ntp.ntsc.ac.cn"
       "hwclock"
   
-  - name: Apt update
-    apt:
-      upgrade: yes
-      update_cache: yes
+  #- name: Apt update
+   # apt:
+    #  upgrade: yes
+     # update_cache: yes
       
