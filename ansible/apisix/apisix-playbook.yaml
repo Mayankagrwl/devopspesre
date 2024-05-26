@@ -35,11 +35,37 @@
       api_version: v1
       kind: Namespace
       state: present
+    when: inventory_hostname in 'master1'
 
   - name: Copy apisix-values.yaml to remote
     template:
       src: apisix-values.j2
       dest: /tmp/apisix-values.yaml
+    when: inventory_hostname in 'master1'
+
+  - name: Add stable chart repo
+    kubernetes.core.helm_repository:
+      name: apisix
+      repo_url: "https://charts.apiseven.com"
+  
+  - name: Add stable chart repo
+    kubernetes.core.helm_repository:
+      name: bitnami
+      repo_url: "https://charts.bitnami.com/bitnami"
+    
+  - name: Separately update the repository cache
+    kubernetes.core.helm:
+      name: apisix
+      namespace: ingress-apisix
+      state: absent
+      update_repo_cache: true
+    
+  - name: Separately update the repository cache
+    kubernetes.core.helm:
+      name: bitnami
+      namespace: ingress-apisix
+      state: absent
+      update_repo_cache: true
 
   - name: Deploy Apisix chart using values files on target
     kubernetes.core.helm:
@@ -50,4 +76,4 @@
       - /tmp/apisix-values.yaml
     #values:
       #kubeProxyReplacement: strict
-      
+    when: inventory_hostname in 'master1'  
