@@ -1,5 +1,5 @@
 - name: Create APISIX deployment
-  hosts: all
+  hosts: cluster1
   become: true
 
   tasks:
