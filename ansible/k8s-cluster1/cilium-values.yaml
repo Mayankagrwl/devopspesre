@@ -29,4 +29,4 @@ hubble:
       nodePort: 31235
   metrics:
     enableOpenMetrics: true
-    enabled: "{dns:query;ignoreAAAA,drop,flow,flows-to-world,http,traffic_direction,icmp,port-distribution,tcp}"
+    #enabled: "{dns:query;ignoreAAAA,drop,flow,flows-to-world,http,traffic_direction,icmp,port-distribution,tcp}"
