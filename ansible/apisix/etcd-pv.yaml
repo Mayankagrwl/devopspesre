@@ -19,7 +19,6 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/pv/etcd-volume-1"
-
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -41,7 +40,6 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/pv/etcd-volume-2"
-
 ---
 apiVersion: v1
 kind: PersistentVolume
