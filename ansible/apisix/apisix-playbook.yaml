@@ -1,0 +1,29 @@
+- name: Create APISIX deployment
+  hosts: all
+  become: true
+
+  tasks:
+  
+  - name: Create directory based on hostname pattern
+    file:
+      path: "/pv/{{item}}"
+      state: directory
+      mode: 0755
+    when: ansible_host == "server3"
+    loop:
+    - etcd-volume-1
+    - etcd-volume-2
+
+  - name: Create directory based on hostname pattern
+    file:
+      path: "/pv/{{item}}"
+      state: directory
+      mode: 0755
+    when: ansible_host == "server4"
+    loop:
+    - etcd-volume-3
+
+  - name: Create PVs
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('file', 'etcd-pv.yaml') | from_yaml }}"
