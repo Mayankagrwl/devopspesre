@@ -26,6 +26,6 @@
   - name: Create PVs
     kubernetes.core.k8s:
       state: present
-      definition: "{{ lookup('file', 'etcd-pv.yaml') | from_yaml }}"
+      definition: "{{ lookup('file', 'etcd-pv.yaml') }}"
     when: inventory_hostname in 'master1'
     
