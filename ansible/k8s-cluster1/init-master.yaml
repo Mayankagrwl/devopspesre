@@ -25,17 +25,17 @@
 
 ## Install CILIUM plugin using HELM
 
-#- name: Add stable chart repo
- # kubernetes.core.helm_repository:
-  #  name: cilium
-   # repo_url: "https://helm.cilium.io/"
+- name: Add stable chart repo
+  kubernetes.core.helm_repository:
+    name: cilium
+    repo_url: "https://helm.cilium.io/"
     
-#- name: Separately update the repository cache
- # kubernetes.core.helm:
-  #  name: cilium
-   # namespace: kube-system
-   # state: absent
-    #update_repo_cache: true
+- name: Separately update the repository cache
+  kubernetes.core.helm:
+    name: cilium
+    namespace: kube-system
+    state: absent
+    update_repo_cache: true
 
 #- name: Copy cilium-values.yaml to remote
  # copy:
@@ -43,21 +43,47 @@
    # dest: /tmp/cilium-values.yaml
     #remote_src: false
 
-#- name: Deploy Cilium chart using values files on target
- # kubernetes.core.helm:
-  #  name: cilium # Name of HELM Deployment
-   # chart_ref: cilium/cilium
-   # release_namespace: kube-system
+- name: Deploy Cilium chart using values files on target
+  kubernetes.core.helm:
+    name: cilium # Name of HELM Deployment
+    chart_ref: cilium/cilium
+    release_namespace: kube-system
     #values_files:
     #- /tmp/cilium-values.yaml
-    #values:
-     # kubeProxyReplacement: strict
-      #k8sServiceHost: 192.168.1.22
-      #externalIPs.enabled: true
-      #k8sServicePort: 6443
-      #bpf:
-       # hostLegacyRouting: false
-        #masquerade: true
+    values:
+      kubeProxyReplacement: strict
+      k8sServiceHost: "{{ ansible_host }}"
+      externalIPs:
+        enabled: true
+      k8sServicePort: 6443
+      bpf:
+        hostLegacyRouting: false
+        masquerade: true
+      prometheus:
+        enabled: true
+      operator:
+        prometheus:
+          enabled: true
+      hubble:
+        enabled: true
+        listenAddress: ":4244"
+        tls:
+          enabled: true
+          auto:
+            enabled: true
+            method: helm
+            certValidityDuration: 1095
+        relay:
+          enabled: true
+        ui:
+          enabled: true
+          service:
+            type: NodePort
+            nodePort: 31235
+        metrics:
+          enableOpenMetrics: true
+          enabled: "{dns:query;ignoreAAAA,drop,flow,flows-to-world,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction,icmp,port-distribution,tcp}"
+      
       #cluster:
        # name: "kubernetes"
 
