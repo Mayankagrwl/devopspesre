@@ -2,8 +2,8 @@
   hosts: cluster1
   become: yes
   vars:
-    my_string: dns:query;ignoreAAAA,drop,flow,flows-to-world;httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction;icmp,port-distribution,tcp
-    split_string: "{{ my_string.split(',') }}"
+    cilium_metrics_string: dns:query;ignoreAAAA,drop,flow,flows-to-world;httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction;icmp,port-distribution,tcp
+
   tasks:
 
     - name: Pre-requisites tasks
