@@ -82,7 +82,7 @@
             nodePort: 31235
         metrics:
           enableOpenMetrics: true
-          enabled: "{dns:query;ignoreAAAA,drop,flow,flows-to-world,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction,icmp,port-distribution,tcp}"
+          enabled: "{{ cilium_metrics_string }}"
       
       #cluster:
        # name: "kubernetes"
