@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -17,10 +18,9 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/pv/etcd-volume1"
+    path: "/pv/etcd-volume-1"
 
 ---
-
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -40,10 +40,9 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/pv/etcd-volume2"
+    path: "/pv/etcd-volume-2"
 
 ---
-
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -63,4 +62,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/pv/etcd-volume3"
+    path: "/pv/etcd-volume-3"
