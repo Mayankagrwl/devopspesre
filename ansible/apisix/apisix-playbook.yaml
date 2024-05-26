@@ -9,7 +9,7 @@
       path: "/pv/{{item}}"
       state: directory
       mode: 0755
-    when: ansible_host == "server3"
+    when: inventory_hostname in 'worker1'
     loop:
     - etcd-volume-1
     - etcd-volume-2
@@ -19,7 +19,7 @@
       path: "/pv/{{item}}"
       state: directory
       mode: 0755
-    when: ansible_host == "server4"
+    when: inventory_hostname in 'worker2'
     loop:
     - etcd-volume-3
 
@@ -27,3 +27,5 @@
     kubernetes.core.k8s:
       state: present
       definition: "{{ lookup('file', 'etcd-pv.yaml') | from_yaml }}"
+    when: inventory_hostname in 'master1'
+    
