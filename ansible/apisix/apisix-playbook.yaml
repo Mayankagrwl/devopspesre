@@ -8,7 +8,7 @@
     file:
       path: "/pv/{{item}}"
       state: directory
-      mode: 0755
+      mode: 0777
     when: inventory_hostname in 'worker1'
     loop:
     - etcd-volume-1
@@ -18,7 +18,7 @@
     file:
       path: "/pv/{{item}}"
       state: directory
-      mode: 0755
+      mode: 0777
     when: inventory_hostname in 'worker2'
     loop:
     - etcd-volume-3
