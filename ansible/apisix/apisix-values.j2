@@ -1,0 +1,13 @@
+ingress-controller:
+  config:
+    apisix:
+      serviceNamespace: ingress-apisix
+      adminAPIVersion: v3
+apisix:
+  plugins: {openid-connect}
+apisix:
+  ssl:
+    enabled: true
+etcd:
+  persistence:
+    size: 2Gi

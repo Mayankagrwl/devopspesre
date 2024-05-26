@@ -28,4 +28,26 @@
       state: present
       definition: "{{ lookup('file', 'etcd-pv.yaml') }}"
     when: inventory_hostname in 'master1'
-    
+
+  - name: Create a k8s Apisix namespace for chart deployment
+    kubernetes.core.k8s:
+      name: ingress-apisix
+      api_version: v1
+      kind: Namespace
+      state: present
+
+  - name: Copy apisix-values.yaml to remote
+    template:
+      src: apisix-values.j2
+      dest: /tmp/apisix-values.yaml
+
+  - name: Deploy Apisix chart using values files on target
+    kubernetes.core.helm:
+      name: apisix # Name of HELM Deployment
+      chart_ref: apisix/apisix
+      release_namespace: ingress-apisix
+      values_files:
+      - /tmp/apisix-values.yaml
+    #values:
+      #kubeProxyReplacement: strict
+      
