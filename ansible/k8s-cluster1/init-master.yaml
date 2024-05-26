@@ -37,52 +37,52 @@
     state: absent
     update_repo_cache: true
 
-#- name: Copy cilium-values.yaml to remote
- # copy:
-  #  src: cilium-values.yaml
-   # dest: /tmp/cilium-values.yaml
-    #remote_src: false
+- name: Copy cilium-values.yaml to remote
+  copy:
+    src: cilium-values.yaml
+    dest: /tmp/cilium-values.yaml
+    remote_src: false
 
 - name: Deploy Cilium chart using values files on target
   kubernetes.core.helm:
     name: cilium # Name of HELM Deployment
     chart_ref: cilium/cilium
     release_namespace: kube-system
-    #values_files:
-    #- /tmp/cilium-values.yaml
-    values:
-      kubeProxyReplacement: strict
-      k8sServiceHost: "{{ ansible_host }}"
-      externalIPs:
-        enabled: true
-      k8sServicePort: 6443
-      bpf:
-        hostLegacyRouting: false
-        masquerade: true
-      prometheus:
-        enabled: true
-      operator:
-        prometheus:
-          enabled: true
-      hubble:
-        enabled: true
-        listenAddress: ":4244"
-        tls:
-          enabled: true
-          auto:
-            enabled: true
-            method: helm
-            certValidityDuration: 1095
-        relay:
-          enabled: true
-        ui:
-          enabled: true
-          service:
-            type: NodePort
-            nodePort: 31235
-        metrics:
-          enableOpenMetrics: true
-          enabled: "{{ cilium_metrics_string }}"
+    values_files:
+    - /tmp/cilium-values.yaml
+    #values:
+      #kubeProxyReplacement: strict
+      #k8sServiceHost: "{{ ansible_host }}"
+      #externalIPs:
+        #enabled: true
+      #k8sServicePort: 6443
+      #bpf:
+        #hostLegacyRouting: false
+        #masquerade: true
+      #prometheus:
+        #enabled: true
+      #operator:
+        #prometheus:
+          #enabled: true
+      #hubble:
+        #enabled: true
+        #listenAddress: ":4244"
+        #tls:
+          #enabled: true
+          #auto:
+            #enabled: true
+            #method: helm
+            #certValidityDuration: 1095
+        #relay:
+          #enabled: true
+        #ui:
+          #enabled: true
+          #service:
+            #type: NodePort
+            #nodePort: 31235
+        #metrics:
+          #enableOpenMetrics: true
+          #enabled: "{{ cilium_metrics_string }}"
       
       #cluster:
        # name: "kubernetes"
