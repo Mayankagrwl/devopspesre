@@ -81,7 +81,7 @@
     when: inventory_hostname in 'master1'
 
   - name: Set Strictarp to True
-    shell: "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e \'s/strictARP: false/strictARP: true/\' | kubectl apply -f - -n kube-system"
+    shell: "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: false/strictARP: true/' | kubectl apply -f - -n kube-system"
     
   - name: Deploy Metallb chart using values files on target
     kubernetes.core.helm:
