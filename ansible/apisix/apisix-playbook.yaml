@@ -64,4 +64,43 @@
       - /tmp/apisix-values.yaml
     #values:
       #kubeProxyReplacement: strict
-    when: inventory_hostname in 'master1'  
+    when: inventory_hostname in 'master1'
+
+  - name: Create a k8s Metallb namespace for chart deployment
+    kubernetes.core.k8s:
+      name: metallb-system
+      api_version: v1
+      kind: Namespace
+      state: present
+    when: inventory_hostname in 'master1'
+
+  - name: Add stable chart repo for Metallb
+    kubernetes.core.helm_repository:
+      name: metallb
+      repo_url: "https://metallb.github.io/metallb"
+    when: inventory_hostname in 'master1'
+    
+  - name: Deploy Metallb chart using values files on target
+    kubernetes.core.helm:
+      name: metallb # Name of HELM Deployment
+      chart_ref: metallb/metallb
+      release_namespace: metallb-system
+    when: inventory_hostname in 'master1'
+
+  - name: Create Ip Address pool
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('file', 'ip-pool1.yaml') }}"
+    when: inventory_hostname in 'master1'
+
+  - name: Announce at L2
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('file', 'announce-l21.yaml') }}"
+    when: inventory_hostname in 'master1'
+
+  
+
+
+
+  
