@@ -1,5 +1,5 @@
 - name: Create APISIX deployment
-  hosts: master11
+  hosts: master1
   become: true
 
   tasks:
