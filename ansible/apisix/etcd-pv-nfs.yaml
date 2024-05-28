@@ -6,11 +6,13 @@ metadata:
 spec:
   volumeMode: Filesystem
   capacity:
-    storage: 2Gi 
+    storage: 3Gi 
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/pv/etcd-volume-1"
+  nfs:
+    path: /srv/nfs/share/pv/apisix/etcd-volume-1
+    server: 192.168.1.26
+    readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -19,11 +21,13 @@ metadata:
 spec:
   volumeMode: Filesystem
   capacity:
-    storage: 2Gi 
+    storage: 3Gi 
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/pv/etcd-volume-2"
+  nfs:
+    path: /srv/nfs/share/pv/apisix/etcd-volume-2
+    server: 192.168.1.26
+    readOnly: false
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -32,8 +36,10 @@ metadata:
 spec:
   volumeMode: Filesystem
   capacity:
-    storage: 2Gi 
+    storage: 3Gi 
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/pv/etcd-volume-3"
+  nfs:
+    path: /srv/nfs/share/pv/apisix/etcd-volume-3
+    server: 192.168.1.26
+    readOnly: false
