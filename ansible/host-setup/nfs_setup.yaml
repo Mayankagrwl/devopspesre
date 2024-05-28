@@ -48,6 +48,11 @@
         enabled: true
     when: inventory_hostname in 'server6'
 
+  - name: NFS package
+    apt:
+      name: nfs-common
+      state: present
+
   - name: Create directory to be mounted
     file:
       path: /nfs/volume1
