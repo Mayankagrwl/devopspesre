@@ -1,33 +1,24 @@
 - name: Create APISIX deployment
-  hosts: cluster1
+  hosts: master11
   become: true
 
   tasks:
   
   - name: Create directory based on hostname pattern
     file:
-      path: "/pv/{{item}}"
+      path: "/nfs/volume1/pv/{{item}}"
       state: directory
       mode: 0777
-    when: inventory_hostname in 'worker1'
     loop:
-    - etcd-volume-1
-    - etcd-volume-2
+    - apisix/etcd-volume-1
+    - apisix/etcd-volume-2
+    - apisix/etcd-volume-3
 
-  - name: Create directory based on hostname pattern
-    file:
-      path: "/pv/{{item}}"
-      state: directory
-      mode: 0777
-    when: inventory_hostname in 'worker2'
-    loop:
-    - etcd-volume-3
-
+ 
   - name: Create PVs
     kubernetes.core.k8s:
       state: present
-      definition: "{{ lookup('file', 'etcd-pv.yaml') }}"
-    when: inventory_hostname in 'master1'
+      definition: "{{ lookup('file', 'etcd-pv-nfs.yaml') }}"
 
   - name: Create a k8s Apisix namespace for chart deployment
     kubernetes.core.k8s:
@@ -35,25 +26,24 @@
       api_version: v1
       kind: Namespace
       state: present
-    when: inventory_hostname in 'master1'
+
 
   - name: Copy apisix-values.yaml to remote
     template:
       src: apisix-values.j2
       dest: /tmp/apisix-values.yaml
-    when: inventory_hostname in 'master1'
 
   - name: Add stable chart repo
     kubernetes.core.helm_repository:
       name: apisix
       repo_url: "https://charts.apiseven.com"
-    when: inventory_hostname in 'master1'
+
   
   - name: Add stable chart repo
     kubernetes.core.helm_repository:
       name: bitnami
       repo_url: "https://charts.bitnami.com/bitnami"
-    when: inventory_hostname in 'master1'
+
     
   - name: Deploy Apisix chart using values files on target
     kubernetes.core.helm:
@@ -64,7 +54,7 @@
       - /tmp/apisix-values.yaml
     #values:
       #kubeProxyReplacement: strict
-    when: inventory_hostname in 'master1'
+ 
 
   - name: Create a k8s Metallb namespace for chart deployment
     kubernetes.core.k8s:
@@ -72,36 +62,36 @@
       api_version: v1
       kind: Namespace
       state: present
-    when: inventory_hostname in 'master1'
+  
 
   - name: Add stable chart repo for Metallb
     kubernetes.core.helm_repository:
       name: metallb
       repo_url: "https://metallb.github.io/metallb"
-    when: inventory_hostname in 'master1'
+   
 
   - name: Set Strictarp to True
     shell: "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: false/strictARP: true/' | kubectl apply -f - -n kube-system"
-    when: inventory_hostname in 'master1'
+
     
   - name: Deploy Metallb chart using values files on target
     kubernetes.core.helm:
       name: metallb # Name of HELM Deployment
       chart_ref: metallb/metallb
       release_namespace: metallb-system
-    when: inventory_hostname in 'master1'
+
 
   - name: Create Ip Address pool
     kubernetes.core.k8s:
       state: present
       definition: "{{ lookup('file', 'ip-pool1.yaml') }}"
-    when: inventory_hostname in 'master1'
+
 
   - name: Announce at L2
     kubernetes.core.k8s:
       state: present
       definition: "{{ lookup('file', 'announce-l21.yaml') }}"
-    when: inventory_hostname in 'master1'
+ 
 
   
 
