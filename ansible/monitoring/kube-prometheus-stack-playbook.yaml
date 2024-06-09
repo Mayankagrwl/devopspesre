@@ -15,7 +15,7 @@
   - name: Copy kube-prometheus-values.yaml to remote
     template:
       src: kube-prometheus-values.j2
-      dest: /tmp/kube-prometheus.yaml
+      dest: /tmp/kube-prometheus-values.yaml
 
   
   - name: Add stable chart repo
@@ -30,4 +30,9 @@
       chart_ref: prometheus-community/kube-prometheus-stack
       release_namespace: monitoring
       values_files:
-      - /tmp/kube-prometheus.yaml
+      - /tmp/kube-prometheus-values.yaml
+
+  - name: Create Routes for Grafana and Prometheus
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('file', 'ingress-prom-grafana.yaml') }}"

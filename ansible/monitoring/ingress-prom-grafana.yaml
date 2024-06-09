@@ -1,0 +1,37 @@
+---
+
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: prometheus-route
+  namespace: monitoring
+spec:
+  http:
+  - name: prom-route
+    match:
+      hosts:
+      - 192.168.1.240
+      paths:
+      - /prometheus/*
+    backends:
+      - serviceName: prometheus-stack-kube-prom-prometheus
+        servicePort: 9090
+
+---
+
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: grafana-route
+  namespace: monitoring
+spec:
+  http:
+  - name: grafana-route
+    match:
+      hosts:
+      - 192.168.1.240
+      paths:
+      - /grafana/*
+    backends:
+      - serviceName: prometheus-stack-grafana
+        servicePort: 80
