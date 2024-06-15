@@ -1,0 +1,38 @@
+- name: Create ArgoCD deployment
+  hosts: master1
+  become: true
+
+  tasks:
+  
+  - name: Create a k8s ArgoCD namespace for chart deployment
+    kubernetes.core.k8s:
+      name: argocd
+      api_version: v1
+      kind: Namespace
+      state: present
+
+
+  #- name: Copy kube-prometheus-values.yaml to remote
+   # template:
+    #  src: kube-prometheus-values.j2
+     # dest: /tmp/kube-prometheus-values.yaml
+
+  
+  - name: Add stable chart repo
+    kubernetes.core.helm_repository:
+      name: argo
+      repo_url: "https://argoproj.github.io/argo-helm"
+
+    
+  - name: Deploy Apisix chart using values files on target
+    kubernetes.core.helm:
+      name: argocd
+      chart_ref: argo/argo-cd
+      release_namespace: argocd
+      #values_files:
+      #- /tmp/kube-prometheus-values.yaml
+
+  #- name: Create Routes for Grafana and Prometheus
+   # kubernetes.core.k8s:
+    #  state: present
+     # definition: "{{ lookup('file', 'ingress-prom-grafana.yaml') }}"
