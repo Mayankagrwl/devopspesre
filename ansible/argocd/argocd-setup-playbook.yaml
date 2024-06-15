@@ -12,10 +12,10 @@
       state: present
 
 
-  #- name: Copy kube-prometheus-values.yaml to remote
-   # template:
-    #  src: kube-prometheus-values.j2
-     # dest: /tmp/kube-prometheus-values.yaml
+  - name: Copy kube-prometheus-values.yaml to remote
+    template:
+      src: argocd-values.j2
+      dest: /tmp/argocd-values.yaml
 
   
   - name: Add stable chart repo
@@ -24,13 +24,13 @@
       repo_url: "https://argoproj.github.io/argo-helm"
 
     
-  - name: Deploy Apisix chart using values files on target
+  - name: Deploy ArgoCD chart using values files on target
     kubernetes.core.helm:
       name: argocd
       chart_ref: argo/argo-cd
       release_namespace: argocd
-      #values_files:
-      #- /tmp/kube-prometheus-values.yaml
+      values_files:
+      - /tmp/argocd-values.yaml
 
   #- name: Create Routes for Grafana and Prometheus
    # kubernetes.core.k8s:
