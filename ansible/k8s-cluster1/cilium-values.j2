@@ -11,22 +11,6 @@ prometheus:
 operator:
   prometheus:
     enabled: true
-hubble:
-  enabled: true
-  listenAddress: ":4244"
-  tls:
-    enabled: true
-    auto:
-      enabled: true
-      method: helm
-      certValidityDuration: 1095
-  relay:
-    enabled: true
-  ui:
-    enabled: true
-    service:
-      type: NodePort
-      nodePort: 31235
   metrics:
     enableOpenMetrics: true
     #enabled: "{dns:query;ignoreAAAA,drop,flow,flows-to-world,http,traffic_direction,icmp,port-distribution,tcp}"
