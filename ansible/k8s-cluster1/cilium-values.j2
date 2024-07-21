@@ -22,6 +22,8 @@ hubble:
       certValidityDuration: 1095
   relay:
     enabled: true
+    nodeSelector:
+      kubernetes.io/hostname: "server2"
   ui:
     enabled: true
     service:
