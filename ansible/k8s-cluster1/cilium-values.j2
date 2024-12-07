@@ -10,9 +10,7 @@ bpf:
 
 ipam:
   operator:
-    clusterPool:
-      cidr: "10.244.0.0/16" # Pod CIDR for the cluster
-      maskSize: 24          
+    clusterPoolIPv4PodCIDRList: ["10.244.0.0/16"]         
 
 hubble:
   enabled: true
