@@ -20,8 +20,24 @@ hubble:
       enabled: true
       method: helm
       certValidityDuration: 1095
+    peer:
+      dnsNames:
+        - "hubble-peer.kube-system.svc.cluster.local"
+        - "hubble-peer.default.hubble-grpc.cilium.io"
+
   relay:
     enabled: true
+    # Modify the peer service's DNS name
+    peerService: "hubble-peer.kube-system.svc.cluster.local:443"
+    # Define the correct DNS names for the certificates
+    tls:
+      peer:
+        dnsNames:
+          - "hubble-peer.kube-system.svc.cluster.local"
+          - "hubble-peer.default.hubble-grpc.cilium.io"
+    # If you are using self-signed certificates or creating custom ones
+    certificates:
+      generate: true
   ui:
     enabled: true
     client:
