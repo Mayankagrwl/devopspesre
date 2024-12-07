@@ -19,10 +19,10 @@
    # regexp: '^SELINUX='
     #line: SELINUX=disabled
 
-#- name: Create modules-load.d directory and file
- # file:
-  #  path: /etc/modules-load.d/containerd.conf
-   # state: touch
+- name: Create modules-load.d directory and file
+  file:
+    path: /etc/modules-load.d/containerd.conf
+    state: touch
 
 - name: Add Conf for containerd
   blockinfile:
