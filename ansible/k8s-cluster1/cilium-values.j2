@@ -1,3 +1,4 @@
+enableDebugLogging: true
 kubeProxyReplacement: true
 k8sServiceHost: {{ ansible_host }}
 externalIPs:
@@ -33,7 +34,7 @@ hubble:
       type: NodePort
       nodePort: 31235
   metrics:
-#enableOpenMetrics: true
+    enableOpenMetrics: true
     enabled:
     - dns
     - drop
