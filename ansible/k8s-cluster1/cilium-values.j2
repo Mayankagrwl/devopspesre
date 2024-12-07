@@ -8,6 +8,12 @@ bpf:
   hostLegacyRouting: false
   masquerade: true
 
+ipam:
+  operator:
+    clusterPool:
+      cidr: "10.244.0.0/16" # Pod CIDR for the cluster
+      maskSize: 24          
+
 hubble:
   enabled: true
   listenAddress: ":4244"
