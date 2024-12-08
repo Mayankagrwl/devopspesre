@@ -8,6 +8,12 @@ bpf:
   hostLegacyRouting: false
   masquerade: true
 
+prometheus:
+  enabled: false
+operator:
+  prometheus:
+    enabled: false
+
 ipam:
   operator:
     clusterPoolIPv4PodCIDRList: ["10.244.0.0/16"]         
