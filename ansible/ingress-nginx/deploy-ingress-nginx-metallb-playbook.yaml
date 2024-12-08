@@ -5,7 +5,7 @@
   tasks:
 
 
-  - name: Copy apisix-values.yaml to remote
+  - name: deploy nginx
     k8s:
       state: present
       definition: "{{ lookup('file','ingress-nginx.yaml')}}"
