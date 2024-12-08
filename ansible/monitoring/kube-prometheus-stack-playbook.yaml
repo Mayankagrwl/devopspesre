@@ -32,7 +32,7 @@
       values_files:
       - /tmp/kube-prometheus-values.yaml
 
-  - name: Create Routes for Grafana and Prometheus
-    kubernetes.core.k8s:
-      state: present
-      definition: "{{ lookup('file', 'ingress-prom-grafana.yaml') }}"
+  #- name: Create Routes for Grafana and Prometheus
+   # kubernetes.core.k8s:
+    #  state: present
+     # definition: "{{ lookup('file', 'ingress-prom-grafana.yaml') }}"
