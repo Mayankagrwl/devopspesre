@@ -2,7 +2,7 @@
   k8s:
     state: present
     namespace: "calico-system"
-    definition: "{{ lookup('file','{{item}}.yaml') }}"
-  loop:
-  - tigera-calico-operator
-  - calico-crd
+    definition: "{{ lookup('file','calico.yaml') }}"
+  #loop:
+  #- tigera-calico-operator
+  #- calico-crd
