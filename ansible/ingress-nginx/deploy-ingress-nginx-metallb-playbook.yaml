@@ -1,0 +1,50 @@
+- name: Create Nginx deployment and deploy metallb
+  hosts: master1
+  become: true
+
+  tasks:
+
+
+  - name: Copy apisix-values.yaml to remote
+    k8s:
+      state: present
+      definition: "{{ lookup('file','ingress-nginx.yaml')}}"
+
+  - name: Create a k8s Metallb namespace for chart deployment
+    kubernetes.core.k8s:
+      name: metallb-system
+      api_version: v1
+      kind: Namespace
+      state: present
+  
+
+  - name: Add stable chart repo for Metallb
+    kubernetes.core.helm_repository:
+      name: metallb
+      repo_url: "https://metallb.github.io/metallb"
+   
+
+  - name: Set Strictarp to True
+    shell: "kubectl get configmap kube-proxy -n kube-system -o yaml | sed -e 's/strictARP: false/strictARP: true/' | kubectl apply -f - -n kube-system"
+
+    
+  - name: Deploy Metallb chart using values files on target
+    kubernetes.core.helm:
+      name: metallb # Name of HELM Deployment
+      chart_ref: metallb/metallb
+      release_namespace: metallb-system
+
+
+  - name: Create Ip Address pool
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('file', 'ip-pool1.yaml') }}"
+
+
+  - name: Announce at L2
+    kubernetes.core.k8s:
+      state: present
+      definition: "{{ lookup('file', 'announce-l21.yaml') }}"
+
+    
+  
