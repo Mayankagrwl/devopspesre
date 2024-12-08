@@ -1,34 +1,34 @@
 - name: Kubernetes Cluster Creation
   hosts: cluster1
   become: yes
-  vars:
-    cilium_metrics_string: dns:query;ignoreAAAA,drop,flow,flows-to-world;httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction;icmp,port-distribution,tcp
+  #vars:
+   # ciliummetrics_string: dns:query;ignoreAAAA,drop,flow,flows-to-world;httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction;icmp,port-distribution,tcp
 
   tasks:
 
     
-    - name: Pre-requisites tasks
-      include_tasks: pre-req.yaml
+#- name: Pre-requisites tasks
+#     include_tasks: pre-req.yaml
 
-    - name: Install Docker
-      include_tasks: install-docker.yaml
+ #   - name: Install Docker
+  #    include_tasks: install-docker.yaml
 
-    - name: K8S Pre-requisites
-      include_tasks: k8s-pre-req.yaml
+   # - name: K8S Pre-requisites
+    #  include_tasks: k8s-pre-req.yaml
 
-    - name: Install Kubernetes components
-      include_tasks: install-k8s.yaml
+   # - name: Install Kubernetes components
+    #  include_tasks: install-k8s.yaml
 
-    #- name: Initialize Kubernetes cluster with kubeadm
-     # include_tasks: init-master.yaml
-      #when: inventory_hostname in 'master1'
+    - name: Initialize Kubernetes cluster with kubeadm
+      include_tasks: init-master.yaml
+      when: inventory_hostname in 'master1'
 
-    #- name: Join nodes to the Kubernetes cluster
-     # include_tasks: join-nodes.yaml
-      #when: inventory_hostname in ['worker1' , 'worker2']
+    - name: Join nodes to the Kubernetes cluster
+      include_tasks: join-nodes.yaml
+      when: inventory_hostname in ['worker1' , 'worker2']
 
-    #- name: Install calico
-     # include_tasks: install-calico.yaml
-      #when: inventory_hostname in 'master1'
+    - name: Install calico
+      include_tasks: install-calico.yaml
+      when: inventory_hostname in 'master1'
 
   
