@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /  # Ensures paths are rewritten correctly
 spec:
   rules:
-  - host: 192.168.56.240  #
+  - host: 192.168.56.240
     http:
       paths:
       - path: /prometheus/*
@@ -30,7 +30,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /  # Ensures paths are rewritten correctly
 spec:
   rules:
-  - host: 192.168.56.240 
+  - host: 192.168.56.240
     http:
       paths:
       - path: /grafana/*
