@@ -1,0 +1,5 @@
+- name: Create weave cni
+  k8s:
+    state: present
+    #namespace: "calico-system"
+    definition: "{{ lookup('file','weave.yaml') }}"
