@@ -6,3 +6,4 @@ networking:
 apiServer:
   extraArgs:
     bind-address: "0.0.0.0"
+    advertise-address: "192.168.1.22"
