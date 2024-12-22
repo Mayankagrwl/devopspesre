@@ -20,12 +20,14 @@
 
 - name: Add Kubernetes repo to kubernetes.repo for centos
   copy:
-    src: kubernetes.repo
+    src: files/kubernetes.repo
     dest: /etc/yum.repos.d/kubernetes.repo
     owner: root
     group: root
     mode: 0644
     remote_src: false
+
+
 
 # use apt for ubuntu
 - name: Install Kubernetes components
