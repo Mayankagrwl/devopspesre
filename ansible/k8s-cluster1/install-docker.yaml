@@ -29,13 +29,13 @@
 
 - name: Add docker-ce.repo to /etc/yum.repos.d/
   copy:
-    src: "{{ lookup('file','docker-ce.repo') }}"
+    src: files/docker-ce.repo
     dest: /etc/yum.repos.d/docker-ce.repo
     owner: root
     group: root
     mode: 0644
     remote_src: false
-    
+
 - name: Install Docker Engine
   package:
     name: "{{item}}"
