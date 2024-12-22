@@ -1,9 +1,9 @@
 apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
-controlPlaneEndpoint: "192.168.1.22"
+controlPlaneEndpoint: "192.168.1.130"
 networking:
   podSubnet: "10.244.0.0/16"
 apiServer:
   extraArgs:
     bind-address: "0.0.0.0"
-    advertise-address: "192.168.1.22"
+    advertise-address: "192.168.1.130"
