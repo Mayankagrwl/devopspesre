@@ -56,7 +56,8 @@
     yum:
       name: nfs-utils
       state: present
-      
+    when: inventory_hostname not in 'server6'
+    
   - name: Create directory to be mounted
     file:
       path: /nfs/volume1
