@@ -25,19 +25,22 @@
     owner: root
     group: root
     mode: 0644
+    remote_src: false
 
+# use apt for ubuntu
 - name: Install Kubernetes components
-  apt:
+  yum:
     name: "{{ item }}"
     state: present
     update_cache: yes
   loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
 
-- name: Hold Kubernetes packages to prevent unintended upgrades
-  dpkg_selections:
-    name: "{{ item }}"
-    selection: hold
-  loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
+# following 1 task is for ubuntu
+#- name: Hold Kubernetes packages to prevent unintended upgrades
+ # dpkg_selections:
+  #  name: "{{ item }}"
+   # selection: hold
+  #loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
 
 #- name: Add --node-ip in kubelet config
  # lineinfile:
