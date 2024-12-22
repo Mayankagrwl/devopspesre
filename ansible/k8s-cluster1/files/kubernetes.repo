@@ -1,7 +1,7 @@
 [kubernetes]
 name=Kubernetes
-baseurl=httpspkgs.k8s.iocorestablev1.29rpm
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.29/rpm
 enabled=1
 gpgcheck=1
-gpgkey=httpspkgs.k8s.iocorestablev1.29rpmrepodatarepomd.xml.key
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.29/rpm/repodata/repomd.xml.key
 #exclude=kubelet kubeadm kubectl cri-tools Kubernetes-cni
