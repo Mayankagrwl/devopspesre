@@ -36,6 +36,8 @@
   shell: |
     modprobe br_netfilter
     modprobe overlay
+    modprobe ip_tables
+    echo 'ip_tables' >> /etc/modules
 
 - name: Create sysctl.d directory and file
   file:
