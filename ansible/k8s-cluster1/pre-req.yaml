@@ -13,6 +13,7 @@
   - unzip
   - yum-utils
   - libffi-devel
+  - git
   #- gnupg2
   #- software-properties-common
   #- apt-transport-https
