@@ -1,21 +1,30 @@
 
-- name: register status of /etc/apt/keyrings/kubernetes-apt-keyring.gpg file
-  stat:
-    path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  register: keyring
 
-- name: Add Kubernetes signing key
-  shell: |
-    curl -fsSL  https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  when: "not keyring.stat.exists"
+## 3tasks related to ubuntu
+#- name: register status of /etc/apt/keyrings/kubernetes-apt-keyring.gpg file
+ # stat:
+  #  path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  #register: keyring
 
-- name: Add Kubernetes repository
-  apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /"
-    state: present
-    filename: 'kubernetes'
-  when: "not keyring.stat.exists"
+#- name: Add Kubernetes signing key
+ # shell: |
+  #  curl -fsSL  https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  #when: "not keyring.stat.exists"
 
+#- name: Add Kubernetes repository
+#  apt_repository:
+ #   repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /"
+  #  state: present
+   # filename: 'kubernetes'
+  #when: "not keyring.stat.exists"
+
+- name: Add Kubernetes repo to kubernetes.repo for centos
+  copy:
+    src: "{{ lookup('file','kubernetes.repo') }}"
+    dest: /etc/yum.repos.d/kubernetes.repo
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Install Kubernetes components
   apt:

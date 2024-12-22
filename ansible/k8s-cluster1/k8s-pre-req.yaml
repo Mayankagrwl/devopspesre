@@ -54,7 +54,6 @@
   shell: |
     sysctl --system
 
-
 - name: Echo 1 to IPv4
   shell: |
     echo 1 > /proc/sys/net/ipv4/ip_forward
