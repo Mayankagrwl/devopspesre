@@ -1,0 +1,22 @@
+[servers]
+
+server1 ansible_host=192.168.1.21 ansible_user=sysops
+server2 ansible_host=192.168.1.22 ansible_user=sysops
+server3 ansible_host=192.168.1.23 ansible_user=sysops
+server4 ansible_host=192.168.1.24 ansible_user=sysops
+server5 ansible_host=192.168.1.25 ansible_user=sysops
+
+[cluster1]
+
+master1 ansible_host=192.168.1.22 ansible_user=sysops
+worker1 ansible_host=192.168.1.23 ansible_user=sysops
+worker2 ansible_host=192.168.1.24 ansible_user=sysops
+
+[masters]
+
+master1 ansible_host=192.168.1.22 ansible_user=sysops
+
+[workers]
+
+worker1 ansible_host=192.168.1.23 ansible_user=sysops
+worker2 ansible_host=192.168.1.24 ansible_user=sysops
