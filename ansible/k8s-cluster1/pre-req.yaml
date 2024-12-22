@@ -11,11 +11,13 @@
   - python3-pip
   - tree
   - unzip
-  - gnupg2
-  - software-properties-common
-  - apt-transport-https
-  - ca-certificates
-  - net-tools
+  - yum-utils
+  - libffi-devel
+  #- gnupg2
+  #- software-properties-common
+  #- apt-transport-https
+  #- ca-certificates
+  #- net-tools
 
 - name: Install Pip3 packages
   pip:
