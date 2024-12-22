@@ -32,16 +32,16 @@
    #   name: ntpdate
     #  state: present
 
-  - name: configure ntp
-    yum:
-      name: ntp
-      state: present
-    when: inventory_hostname not in 'server6'
-    
-  - name: execute shell
-    shell: |
-      "ntpdate ntp.ntsc.ac.cn"
-      "hwclock"
+  #- name: configure ntp
+   # yum:
+    #  name: ntp
+     # state: present
+    #when: inventory_hostname not in 'server6'
+
+  #- name: execute shell
+   # shell: |
+    #  "ntpdate ntp.ntsc.ac.cn"
+     # "hwclock"
   
   #- name: Apt update
    # apt:
