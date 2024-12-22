@@ -31,6 +31,9 @@
           /srv/nfs/share 192.168.1.24(rw,sync,no_subtree_check)
           /srv/nfs/share 192.168.1.25(rw,sync,no_subtree_check)
           /srv/nfs/share 192.168.1.26(rw,sync,no_subtree_check)
+          /srv/nfs/share 192.168.1.130(rw,sync,no_subtree_check)
+          /srv/nfs/share 192.168.1.31(rw,sync,no_subtree_check)
+          /srv/nfs/share 192.168.1.32(rw,sync,no_subtree_check)
     
 
     - name: Refresh exports
