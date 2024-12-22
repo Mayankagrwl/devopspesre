@@ -9,15 +9,15 @@
     replace: '#\1\2\3swap\4'
 
 # SElinux not present on Ubuntu
-#- name: Disable SELinux
- # selinux:
-  #  state: disabled
+- name: Disable SELinux
+  selinux:
+    state: disabled
 
-#- name: SELinux Disabled in Config
- # lineinfile:
-  #  path: /etc/selinux/config
-   # regexp: '^SELINUX='
-    #line: SELINUX=disabled
+- name: SELinux Disabled in Config
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: SELINUX=disabled
 
 - name: Create modules-load.d directory and file
   file:
