@@ -27,11 +27,17 @@
       fstype: vboxsf
       state: present
       
-  - name: Configure NTP
-    apt:
-      name: ntpdate
-      state: present
+ # - name: Configure NTP
+  #  apt:
+   #   name: ntpdate
+    #  state: present
 
+  - name: configure ntp
+    yum:
+      name: ntp
+      state: present
+    when: inventory_hostname not in 'server6'
+    
   - name: execute shell
     shell: |
       "ntpdate ntp.ntsc.ac.cn"

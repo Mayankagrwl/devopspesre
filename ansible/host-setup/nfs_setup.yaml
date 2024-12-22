@@ -47,6 +47,7 @@
         enabled: true
     when: inventory_hostname in 'server6'
 
+  # Turn this on for Ubuntu servers
   #- name: NFS package
    # apt:
     #  name: nfs-common
@@ -57,7 +58,7 @@
       name: nfs-utils
       state: present
     when: inventory_hostname not in 'server6'
-    
+
   - name: Create directory to be mounted
     file:
       path: /nfs/volume1
