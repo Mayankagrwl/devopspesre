@@ -4,7 +4,7 @@
   register: api_status
 
 - name: Initialize the Kubernetes cluster using kubeadm
-  shell: "kubeadm init --control-plane-endpoint=192.168.1.130 --apiserver-advertise-address=192.168.1.130  --pod-network-cidr=10.244.0.0/16 --skip-phases=addon/kube-proxy" ## --skip-phases=addon/kube-proxy"  ###--apiserver-advertise-address={{ ansible_host }} --pod-network-cidr=192.168.159.0/16  --cri-socket=unix:///var/run/cri-dockerd.sock" ##10.244.0.0/16 10.1.1.0/24
+  shell: "kubeadm init --control-plane-endpoint=192.168.1.130 --apiserver-advertise-address=192.168.1.130  --pod-network-cidr=10.244.0.0/16" ##--skip-phases=addon/kube-proxy" ## --skip-phases=addon/kube-proxy"  ###--apiserver-advertise-address={{ ansible_host }} --pod-network-cidr=192.168.159.0/16  --cri-socket=unix:///var/run/cri-dockerd.sock" ##10.244.0.0/16 10.1.1.0/24
   register: kubeadm_init
   when: api_status.stdout_lines | length == 0
 
