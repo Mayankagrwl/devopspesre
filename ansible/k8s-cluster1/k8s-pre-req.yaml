@@ -8,6 +8,11 @@
     regexp: '^(\s*)([^#\n]+\s+)(\w+\s)swap(\s+.*)$'
     replace: '#\1\2\3swap\4'
 
+- name: Restart chronyd
+  service:
+    name: chronyd
+    state: restarted
+    
 - name: disable firewalld
   service:
     name: firewalld
