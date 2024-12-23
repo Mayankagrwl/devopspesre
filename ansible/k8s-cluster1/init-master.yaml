@@ -27,4 +27,11 @@
     dest: $HOME/.kube/config
     remote_src: yes
     owner: "{{ ansible_user }}"
-    mode: 0600
+    mode: 
+    
+
+- name: Enable kubelet 
+  service:
+    name: kubelet
+    state: started
+    enabled: true

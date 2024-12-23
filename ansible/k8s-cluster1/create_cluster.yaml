@@ -19,20 +19,20 @@
   - name: Install Kubernetes components
     include_tasks: install-k8s.yaml
 
-  - name: Initialize Kubernetes cluster with kubeadm
-    include_tasks: init-master.yaml
-    when: inventory_hostname in 'master1'
+  #- name: Initialize Kubernetes cluster with kubeadm
+   # include_tasks: init-master.yaml
+    #when: inventory_hostname in 'master1'
 
-  - name: Join nodes to the Kubernetes cluster
-    include_tasks: join-nodes.yaml
-    when: inventory_hostname in ['worker1' , 'worker2']
+  #- name: Join nodes to the Kubernetes cluster
+   # include_tasks: join-nodes.yaml
+    #when: inventory_hostname in ['worker1' , 'worker2']
 
-  - name: Install calico
-    include_tasks: install-calico.yaml
-    when: inventory_hostname in 'master1'
+  #- name: Install calico
+   # include_tasks: install-calico.yaml
+    #when: inventory_hostname in 'master1'
 
-  - name: Install weave
-    include_tasks: install-weave.yaml
-    when: inventory_hostname in 'master1'
+#- name: Install weave
+ #   include_tasks: install-weave.yaml
+  #  when: inventory_hostname in 'master1'
 
   
