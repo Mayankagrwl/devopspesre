@@ -28,3 +28,17 @@
   - hvac==1.1.1
   - kubernetes==26.1.0
   - openshift==0.13.1
+
+- name: Install iptables
+  package:
+    name: iptables-services
+    state: present
+
+- name: Start iptables
+  service:
+    name: iptables
+    state: started
+    enabled: yes
+    
+- name: Save  iptables
+  shell: "service iptables save"
