@@ -7,21 +7,21 @@
   tasks:
 
     
-  #- name: Pre-requisites tasks
-   # include_tasks: pre-req.yaml
+  - name: Pre-requisites tasks
+    include_tasks: pre-req.yaml
 
-  #- name: Install Docker
-   # include_tasks: install-docker.yaml
+  - name: Install Docker
+    include_tasks: install-docker.yaml
 
-  #- name: K8S Pre-requisites
-   # include_tasks: k8s-pre-req.yaml
+  - name: K8S Pre-requisites
+    include_tasks: k8s-pre-req.yaml
 
-  #- name: Install Kubernetes components
-  #  include_tasks: install-k8s.yaml
+  - name: Install Kubernetes components
+    include_tasks: install-k8s.yaml
 
-  - name: Initialize Kubernetes cluster with kubeadm
-    include_tasks: init-master.yaml
-    when: inventory_hostname in 'master1'
+  #- name: Initialize Kubernetes cluster with kubeadm
+  #  include_tasks: init-master.yaml
+   # when: inventory_hostname in 'master1'
 
   #- name: Join nodes to the Kubernetes cluster
    # include_tasks: join-nodes.yaml

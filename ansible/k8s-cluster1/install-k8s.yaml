@@ -44,11 +44,11 @@
    # selection: hold
   #loop: [ 'kubelet', 'kubeadm', 'kubectl' ]
 
-- name: Add --node-ip in kubelet config
-  lineinfile:
-    path: /etc/sysconfig/kubelet
-    regexp: '^KUBELET_EXTRA_ARGS='
-    line: KUBELET_EXTRA_ARGS="--node-ip={{ ansible_default_ipv4.address}}"
+#- name: Add --node-ip in kubelet config
+ # lineinfile:
+  #  path: /etc/sysconfig/kubelet
+   # regexp: '^KUBELET_EXTRA_ARGS='
+    #line: KUBELET_EXTRA_ARGS="--node-ip={{ ansible_default_ipv4.address}}"
 
 -  name: Reload Systemd
    shell: systemctl daemon-reload
