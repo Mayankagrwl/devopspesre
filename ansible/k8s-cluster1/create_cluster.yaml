@@ -31,8 +31,8 @@
    # include_tasks: install-calico.yaml
     #when: inventory_hostname in 'master1'
 
-  #- name: Install weave
-   # include_tasks: install-weave.yaml
-    #when: inventory_hostname in 'master1'
+  - name: Install weave
+    include_tasks: install-weave.yaml
+    when: inventory_hostname in 'master1'
 
   
