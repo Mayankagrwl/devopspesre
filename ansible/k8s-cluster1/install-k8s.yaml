@@ -53,10 +53,10 @@
 -  name: Reload Systemd
    shell: systemctl daemon-reload
 
-- name: Enable kubelet
-  service:
-    name: kubelet
-    enabled: yes   
+#- name: Enable kubelet
+ # service:
+  #  name: kubelet
+   # enabled: yes   
 
 #-  name: Start Kubelet
  #  service:
