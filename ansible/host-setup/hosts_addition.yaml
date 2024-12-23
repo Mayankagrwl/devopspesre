@@ -15,17 +15,17 @@
         192.168.1.31 192.168.56.131 server11
         192.168.1.32 192.168.56.132 server12
 
-  - name: Create Shared directory
-    file:
-      path: /shared1
-      state: directory
-      mode: '0755'
+ # - name: Create Shared directory
+  #  file:
+   #   path: /shared1
+    #  state: directory
+     # mode: '0755'
 
-  - mount:
-      path: /shared1
-      src: shared1
-      fstype: vboxsf
-      state: present
+  #- mount:
+   #   path: /shared1
+    #  src: shared1
+     # fstype: vboxsf
+      #state: present
       
  # - name: Configure NTP
   #  apt:
