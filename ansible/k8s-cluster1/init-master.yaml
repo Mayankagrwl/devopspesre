@@ -27,7 +27,22 @@
   service:
     name: kubelet
     state: started
-    enabled: true
+    enabled: 
+
+- name: Ensure cronjob for commenting 'search' line in /etc/resolv.conf
+  hosts: all
+  tasks:
+    - name: Add cron job to comment 'search' line in /etc/resolv.conf
+      cron:
+        name: "Comment 'search' line in /etc/resolv.conf"
+        minute: "*"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        user: root
+        job: "sed -i '/^search/s/^/# /' /etc/resolv.conf"
+
 
 ## Install CILIUM plugin using HELM
 
