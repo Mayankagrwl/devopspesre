@@ -9,3 +9,10 @@
   args:
     chdir: $HOME
     creates: /etc/kubernetes/kubelet.conf
+
+
+- name: Enable kubelet 
+  service:
+    name: kubelet
+    state: started
+    enabled: true
